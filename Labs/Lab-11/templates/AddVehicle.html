@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AddVehicle</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<form id="form" action="" method="post">
+RegNo: <input type="text" name="reg"><br>
+Model: <input type="text" name="model"><br>
+<input id="submit" type="button" name="submit" value="submit">
+</form>
+
+<script>
+    $(document).ready(function(){
+        // click on button submit
+        $("#submit").on('click', function(){
+            // send ajax
+            var formdata = $("#form").serializeArray();
+            var data = {};
+            $(formdata ).each(function(index, obj){
+                data[obj.name] = obj.value;
+            });
+            data=JSON.stringify(data)
+            console.log(data)
+            $.ajax({
+                url: '/api/buses', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                data : data, // post data || get data
+                dataType : 'json',
+                contentType: "application/json; charset=utf-8",
+
+                success : function(result) {
+                    // you can see the result from the console
+                    // tab of the developer tools
+                    console.log(result);
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+
+        });
+    });
+    </script>
+
+
+</body>
+</html>

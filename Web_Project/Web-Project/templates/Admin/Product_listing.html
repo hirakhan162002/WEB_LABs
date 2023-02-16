@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  	<script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <title>Product Listing</title>
+</head>
+<style>
+     *{
+        font-family: Garamond;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(33, 48, 8);">
+        <a class="navbar-brand mx-4" href="./adminhome.html" style="font-family: Lucida Handwriting">Blossoms & Berries</a>
+    </nav>
+    <div class="container-fluid my-4 mx-3">
+        <div class="row">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: darkolivegreen;font-size: 18px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  align-items-sm-start" id="menu">
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline  text-white">Orders<i class="fa fa-caret-down mx-2" aria-hidden="true"></i></span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <!--<li class="w-100">
+                                    <a href="#" class="nav-link px-0  text-white"> <span class="d-none d-sm-inline">Order</span> </a>
+                                </li>-->
+                                <li>
+                                    <a href="/orderReport" class="nav-link px-0  text-white"> <span class="d-none d-sm-inline">Orders Report</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Products<i class="fa fa-caret-down mx-2" aria-hidden="true"></i></span> </a>
+                                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="/addProduct" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Add Product</span></a>
+                                </li>
+                                <li>
+                                    <a href="/productListing" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Products Report</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Customers<i class="fa fa-caret-down mx-2" aria-hidden="true"></i></span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                <li>
+                                    <a href="/customerReport" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Customers Report</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/adminProfile" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-white">Profile</span> </a>
+                        </li>
+                        <li>
+                            <a href="/adminLogin" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-white">Log out</span> </a>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="col md-10">
+                <div class="row">
+                    <div  class="col">
+                        <div class = "row text-center my-4" style="font-size: 25px; font-weight: bold">
+                            {% with messages=get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <p>{{ message }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="card" style="width: 90%; margin-left: 50px; background-color: #cad2c5;">
+                            <div class="card-header">
+                                <h1 class="text-center">Plants</h1>
+                            </div>
+                            <div class="card-body">
+                                <table id="plants-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Color</th>
+                                            <th>SubCategory</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for plant in plants %}
+                                            <tr>
+                                                <td>{{ plant.name }}</td>
+                                                <td>{{ plant.price }}</td>
+                                                <td>{{ plant.quantity }}</td>
+                                                <td>{{ plant.color }}</td>
+                                                <td>{{ plant.subcategory }}</td>
+                                                <td>{{ plant.description }}</td>
+                                                <td><img src="{{ url_for('static', filename='product_images/' + plant.image) }}" alt="plant Image" style="width: 70px;height: 70px"></td>
+                                                <td>
+                                                    <div style="display: flex">
+                                                        <form action="/updateRecord" method="POST">
+                                                            <input type="text" name="category" value="plant" hidden>
+                                                            <button value="{{ plant.id }}" name="id" type="submit"><i class="fas fa-edit"></i></button>
+                                                        </form>
+                                                        <form action="/deleteRecord" method="POST">
+                                                            <input type="text" name="category" value="plant" hidden>
+                                                            <button value="{{ plant.id }}" name="id" type="submit"><i class="fas fa-remove" style="color: red;width: 14px;"></i></button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row my-4">
+                    <div  class="col py-3 my-2">
+                        <div class="card" style="width: 90%; margin-left: 50px; background-color: #cad2c5;">
+                            <div class="card-header">
+                                <h1 class="text-center">Seeds</h1>
+                            </div>
+                            <div class="card-body">
+                                <table id="seeds-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Color</th>
+                                            <th>SubCategory</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for seed in seeds %}
+                                            <tr>
+                                                <td>{{ seed.name }}</td>
+                                                <td>{{ seed.price }}</td>
+                                                <td>{{ seed.quantity }}</td>
+                                                <td>{{ seed.color }}</td>
+                                                <td>{{ seed.subcategory }}</td>
+                                                <td>{{ seed.description }}</td>
+                                                <td><img src="{{ url_for('static', filename='product_images/' + seed.image) }}" alt="Seed Image" style="width: 70px;height: 70px"></td>
+                                                <td>
+                                                    <div style="display: flex">
+                                                        <form action="/updateRecord" method="POST">
+                                                            <input type="text" name="category" value="seed" hidden>
+                                                            <button value="{{ seed.id }}" name="id" type="submit"><i class="fas fa-edit"></i></button>
+                                                        </form>
+                                                        <form action="/deleteRecord" method="POST">
+                                                            <input type="text" name="category" value="seed" hidden>
+                                                            <button value="{{ seed.id }}" name="id" type="submit"><i class="fas fa-remove" style="color: red;width: 14px;"></i></button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div  class="col">
+                        <div class="card" style="width: 90%; margin-left: 50px; background-color: #cad2c5;">
+                            <div class="card-header">
+                                <h1 class="text-center">Fertilizers</h1>
+                            </div>
+                            <div class="card-body">
+                                <table id="fertilizers-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Color</th>
+                                            <th>SubCategory</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for fertilizer in fertilizers %}
+                                            <tr>
+                                                <td>{{ fertilizer.name }}</td>
+                                                <td>{{ fertilizer.price }}</td>
+                                                <td>{{ fertilizer.quantity }}</td>
+                                                <td>{{ fertilizer.color }}</td>
+                                                <td>{{ fertilizer.subcategory }}</td>
+                                                <td>{{ fertilizer.description }}</td>
+                                                <td><img src="{{ url_for('static', filename='product_images/' + fertilizer.image) }}" alt="Fertilizer Image" style="width: 70px;height: 70px"></td>
+                                                <td>
+                                                    <div style="display: flex">
+                                                        <form action="/updateRecord" method="POST">
+                                                            <input type="text" name="category" value="fertilizer" hidden>
+                                                            <button value="{{ fertilizer.id }}" name="id" type="submit"><i class="fas fa-edit"></i></button>
+                                                        </form>
+                                                        <form action="/deleteRecord" method="POST">
+                                                            <input type="text" name="category" value="fertilizer" hidden>
+                                                            <button value="{{ fertilizer.id }}" name="id" type="submit"><i class="fas fa-remove" style="color: red;width: 14px;"></i></button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#plants-table').DataTable();
+         });
+        /*$(document).ready(function() {
+            var table = $('#products-table').DataTable();
+            var productData = products|tojson|safe};passed by flask
+            for (var i = 0; i < productData.length; i++) {
+                var product = productData[i];
+                var row = '<tr>';
+                row += '<td>' + product.name + '</td>';
+                row += '<td>' + product.price + '</td>';
+                row += '<td>' + product.quantity + '</td>';
+                row += '<td>' + product.color + '</td>';
+                row += '<td>' + product.description + '</td>';
+                row += '<td><img src="' url_for("static", filename="uploads/" + product.image) '"></td>';
+                row += '</tr>';
+                table.row.add($(row)).draw();
+            }
+        });*/
+
+        /*$(document).ready(function() {
+        $('#products-table').DataTable({
+            data: products|safe }},
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'price' },
+                { data: 'quantity' },
+                { data: 'color' },
+                { data: 'description' },
+                {
+                    data: 'image',
+                    render: function(data) {
+                        return '<img src="data:image/jpg;base64,' + data + '" width="50" height="50">';
+                    }
+                }
+            ]
+        });
+    });*/
+    $(document).ready(function() {
+            $('#seeds-table').DataTable();
+         });
+        /*$(document).ready(function() {
+            var table = $('#products-table').DataTable();
+            var productData =  products|tojson|safe }}; //passed by flask
+            for (var i = 0; i < productData.length; i++) {
+                var product = productData[i];
+                var row = '<tr>';
+                row += '<td>' + product.name + '</td>';
+                row += '<td>' + product.price + '</td>';
+                row += '<td>' + product.quantity + '</td>';
+                row += '<td>' + product.color + '</td>';
+                row += '<td>' + product.description + '</td>';
+                row += '<td><img src="' url_for("static", filename="uploads/" + product.image) '"></td>';
+                row += '</tr>';
+                table.row.add($(row)).draw();
+            }
+        });*/
+
+        /*$(document).ready(function() {
+        $('#products-table').DataTable({
+            data: products|safe }},
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'price' },
+                { data: 'quantity' },
+                { data: 'color' },
+                { data: 'description' },
+                {
+                    data: 'image',
+                    render: function(data) {
+                        return '<img src="data:image/jpg;base64,' + data + '" width="50" height="50">';
+                    }
+                }
+            ]
+        });
+    });*/
+    $(document).ready(function() {
+            $('#fertilizers-table').DataTable();
+    });
+        /*$(document).ready(function() {
+            var table = $('#products-table').DataTable();
+            var productData =  products|tojson|safe }}; //passed by flask
+            for (var i = 0; i < productData.length; i++) {
+                var product = productData[i];
+                var row = '<tr>';
+                row += '<td>' + product.name + '</td>';
+                row += '<td>' + product.price + '</td>';
+                row += '<td>' + product.quantity + '</td>';
+                row += '<td>' + product.color + '</td>';
+                row += '<td>' + product.description + '</td>';
+                row += '<td><img src="' url_for("static", filename="uploads/" + product.image) '"></td>';
+                row += '</tr>';
+                table.row.add($(row)).draw();
+            }
+        });*/
+
+        /*$(document).ready(function() {
+        $('#products-table').DataTable({
+            data: products|safe }},
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'price' },
+                { data: 'quantity' },
+                { data: 'color' },
+                { data: 'description' },
+                {
+                    data: 'image',
+                    render: function(data) {
+                        return '<img src="data:image/jpg;base64,' + data + '" width="50" height="50">';
+                    }
+                }
+            ]
+        });
+    });*/
+    /* $(document).ready(function (){
+        $('#f-prod').on('click',function(){
+            prodId=document.getElementById("f-prod").value()
+            console.log(prodId)
+            $.ajax({
+                type:'POST',
+                contentType: 'application/json;charset=UTF-8',
+                url:'/deleteRecord',
+                data: JSON.stringify({'ids': prodId}),
+                cache:false,
+                success:function(response){
+                    console.log(response)
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text)
+                }
+            });
+        });
+    })*/
+
+
+</script>
+
+</body>
+</html>

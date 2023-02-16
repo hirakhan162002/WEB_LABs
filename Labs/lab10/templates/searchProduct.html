@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search Contact</title>
+</head>
+<body>
+    <center>
+        <h2>Search Contact</h2>
+        <form action = "/search_contact" method = "post">
+            <input type = "text" required placeholder="Enter the Product Name" name = "name">
+            <br><br>
+            <input type = "submit" value = "submit" name = "submit">
+        </form>
+
+    <br><br>
+    <p style="color: red;">{{message}}</p>
+
+    {% for c in contactData %}
+    <table border = "2">
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Productb</th>
+            <th>City</th>
+            <th>Profession</th>
+        </tr>
+        <tr>
+            <td>{{c.id}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.mobileNo}}</td>
+            <td>{{c.city}}</td>
+            <td>{{c.profession}}</td>
+        </tr>
+    </table>
+    {% endfor %}
+
+    <h3>If you want to store the new contact. Click on the Link below:</h3>
+    <a href="/contact_form">Create Contact</a>
+    <br>
+    <h3>If you want to see the Contacts. Click on the Link below:</h3>
+    <a href = "/show_contacts">Show Contacts</a>
+    </center>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.text-center
+{
+    text-align:center;
+
+}
+.bg-col
+{
+    background-color: cadetblue;
+}
+.mx-auto
+{
+    margin:auto;
+}
+.flex
+{
+    display: flex;
+}
+.flex-dir
+{
+    flex-direction: column;
+}
+.align-item{
+    align-items: center;
+}
+.row
+{
+    padding: 6px 0px;
+}

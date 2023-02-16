@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<style>
+.calculator {
+max-width: 700px;
+background-color: Tomato;
+padding: 20px;
+border-radius: 20px;
+border-style: double;
+border-color: green;
+margin: 100px auto;
+}
+input[type=text] {
+width: 315px;
+    height: 30px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: yellow;
+    color: rgb(0,0,0);
+    padding: 0 10px 0 5px;
+    margin: 25px 50px 10px 5px;
+
+}
+.calc-buttons 
+{
+ display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+
+}
+.button
+{
+margin: 3px;
+width: 63px;
+border: none;
+height: 25px;
+border-radius: 4px;
+color: #000000;
+cursor: pointer;
+}
+button:hover 
+{
+  background-color: hsla(180, 100%, 40%, 0.3);
+  transition: .2s;
+}
+.functions-one {
+    width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.functions-two 
+{
+width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.triggers {
+    background-color: rgb(134, 255, 165);
+}
+.numbers {
+    background-color: rgb(143, 175, 151);
+}
+.simple
+{
+    background-color: rgb(143, 175, 50);
+}
+
+.complex {
+    background-color: rgb(134, 159, 246);
+}
+</style>
+
+<div class="calculator">
+        <input type="text" id="screen" maxlength="100">
+<div class="calc-buttons">
+
+<div class="functions-one">
+    <button class="button triggers">C</button>
+    <button class="button simple">(</button>
+    <button class="button simple">)</button>
+    <button class="button numbers">7</button>
+    <button class="button numbers">8</button>
+    <button class="button numbers">9</button>
+    <button class="button numbers">4</button>
+    <button class="button numbers">5</button>
+    <button class="button numbers">6</button>
+    <button class="button numbers">1</button>
+    <button class="button numbers">2</button>
+    <button class="button numbers">3</button>
+    <button class="button numbers">0</button>
+    <button class="button simple">.</button>
+</div>
+
+<div class="functions-two">
+    <button class="button complex">%</button>
+    <button class="button complex">x !</button>
+    <button class="button complex">x^</button>
+    <button class="button simple">*</button>
+    <button class="button simple">/</button>
+    <button class="button complex">ln</button>
+    <button class="button complex">e</button>
+    <button class="button simple">+</button>
+    <button class="button complex">x ²</button>
+    <button class="button complex">log</button>
+    <button class="button complex">cos</button>
+    <button class="button simple">-</button>
+    <button class="button complex">√</button>
+    <button class="button complex">sin</button>
+    <button class="button complex">tan</button>
+    <button class="button triggers">=</button>
+    <button class="button complex">π</button>
+    <button class="button complex">∘</button>
+    <button class="button complex">rad</button>
+</div>
+      </div>
+</div>
+
+</body>
+<script src = "calculator.js">
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Book</title>
+</head>
+<body>
+    <center> 
+        <h1>Contact Form</h1>
+        <p>Fill this form to create new contact</p>
+        <br>
+        <form action="/save_data" method = "post">
+            <label>Id:</label>
+            <input type = "number" required name = "id">
+            <br><br>
+            <label>Name:</label>
+            <input type = "text" required name = "name">
+            <br><br>
+            <label>Mobile No:</label>
+            <input type = "tel" required name = "mobileNo">
+            <br><br>
+            <label>City:</label>
+            <input type = "text" required name = "city">
+            <br><br>
+            <label>Profession:</label>
+            <input type = "text" required name = "profession">
+            <br><br>
+            <input type = "submit" name = "submit" value = "submit">
+        </form>
+        <br><br>
+        <p style="color: green;">{{message1}}</p>
+        <p style="color: red;">{{message2}}</p>
+
+        <h3>If you want to see the Contacts. Click on the Link below:</h3>
+        <a href = "/show_contacts">Show Contacts</a>
+        <br>
+        <h3>If you want to search the contact. Click on the Link below:</h3>
+    <a href="/search_form">Search Contact</a>
+    </center>
+</body>
+</html>

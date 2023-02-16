@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>updateProduct</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<center>
+    <form id="form" action="" method="post">
+Enter your ID: <input type="text" name="name"><br>
+Description: <input type="text" name="description"><br>
+Price: <input type="text" name="price"><br>
+
+
+
+<input id="submit" type="button" name="submit" value="submit">
+</form>
+<p id = "para"></p>
+</center>
+
+<script>
+    $(document).ready(function(){
+        // click on button submit
+        $("#submit").on('click', function(){
+            // send ajax
+            var formdata = $("#form").serializeArray();
+            var data = {};
+            $(formdata ).each(function(index, obj){
+                data[obj.name] = obj.value;
+            });
+            data=JSON.stringify(data)
+            console.log(data)
+            $.ajax
+            ({
+                url: '/api/product', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                data : data, // post data || get data
+                dataType : 'json',
+                contentType: "application/json; charset=utf-8",
+
+                success : function(result) {
+                    // you can see the result from the console
+                    // tab of the developer tools
+                    console.log(result);
+                    document.getElementById("para").innerText = "Product stored successfully"
+
+                },
+                    error: function(xhr, resp, text)
+                    {
+                        console.log(xhr, resp, text);
+                    }
+            })
+
+        });
+    });
+    </script>
+
+</body>
+</html>

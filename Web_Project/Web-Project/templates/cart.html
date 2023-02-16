@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  	<script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <title>Cart</title>
+  </head>
+  <style>
+    *{
+        font-family: Garamond;
+        font-size: medium;
+    }
+    #f {
+        display: inline-block;
+        vertical-align: middle;
+    }
+  </style>
+  <body style="background-color: #cad2c5">
+    <header>
+    <!-- navbar start -->
+    <nav class="navbar navbar-expand-lg navbar-dark"style="background-color: rgb(33, 48, 8);">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/home" style="font-family: Lucida Handwriting">Blossoms & Berries</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" aria-current="page" href="/home">Home</a>
+            <a class="nav-link" href="/signupForm">Register</a>
+            <a class="nav-link" href="/loginForm">Login</a>
+            <a class="nav-link" href="/About">About</a>
+            <a class="nav-link active" href="/cart">View Cart</a>
+            <a class="nav-link" href="/userProfile">Profile</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- navbar end -->
+  </header>
+  <!-- header end -->
+
+  <!-- body start -->
+
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <p><span class="h2" style="margin-top: 20px">Shopping Cart </span></p>
+
+
+        <div class="card mb-4" style="background-color: whitesmoke;">
+
+            <div class="card-body p-4">
+                 <div class="row align-items-center">
+                    <div class="col-md-2 d-flex justify-content-center">
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="large text-muted">Name</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="large text-muted">Color</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="large text-muted">Quantity</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="large text-muted">Price</p>
+                        </div>
+                    </div>
+                     <!--<div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="large text-muted">Total</p>
+                        </div>
+                    </div>-->
+                 </div>
+                <div class="row text-center my-4" style="font-size: 25px;color: darkolivegreen;font-weight: bolder;">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                {% for product in cart %}
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img src="{{ url_for('static', filename='product_images/' + product.image) }}" class="img-fluid" alt="Generic placeholder image" style="width: 80px;height: 80px">
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="lead fw-normal mb-0">{{ product.name }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="lead fw-normal mb-0"><i class="fas fa-circle me-2" style="color: {{ product.color }} ;"></i>{{ product.color }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <form id="f" action="/plusQuantity" method="post">
+                                <input type="hidden" name="product_id" value="{{ product.pID }}">
+                                <button  name="add" type="submit" style="margin-right: 10px;color: grey;border: none;font-size: smaller"><i class="fa-solid fa-plus"></i></button>
+                            </form>
+                            <span class="lead fw-normal mb-0" id="prod_quantity">{{ product.quantity }}</span>
+                            <form id="f" action="/minusQuantity" method="post">
+                                <input type="hidden" name="product_id" value="{{ product.pID }}">
+                                <button type="submit" name ="subtract" style="margin-left: 10px;color: grey;border: none;font-size: smaller"><i class="fas fa-minus"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <p class="lead fw-normal mb-0" id="prod_price">Rs. {{ product.price }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center">
+                        <div>
+                            <form action="/removeFromCart" method="post">
+                                <input type="hidden" name="product_id" value="{{ product.pID }}">
+                                <button class="btn btn-outline-danger" style="color: black"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card mb-5" style="background-color: whitesmoke;">
+          <div class="card-body p-4">
+
+            <div class="float-end">
+              <p class="mb-0 me-5 d-flex align-items-center">
+                <span class="small text-muted me-2">Order total:</span><span
+                  class="lead fw-normal" id="prod_orderTotal">Rs. {{ orderTotal }}</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end " style="margin-bottom: 50px">
+          <a href="/home" class = "btn btn-dark btn-lg mx-3">Continue shopping</a>
+          <a href="/shippingInfo" class = "btn btn-dark btn-lg">Check Out</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </body>
+    <!-- body end -->
+    <!--Footer Start-->
+    <hr style="color: black;">
+    <footer class="text-center text-white" style="background-color: #cad2c5">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+              <!-- Facebook -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="https://www.facebook.com/" target="_blank" role="button"><i class="fab fa-facebook-f"></i
+      ></a>
+
+              <!-- Twitter -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="https://twitter.com/?lang=en" target="_blank" role="button"><i class="fab fa-twitter"></i
+      ></a>
+
+              <!-- Google -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="https://www.google.com/" target="_blank" role="button"><i class="fab fa-google"></i
+      ></a>
+
+              <!-- Instagram -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="https://www.instagram.com/" target="_blank" role="button"><i class="fab fa-instagram"></i
+      ></a>
+
+              <!-- Linkedin -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="https://pk.linkedin.com/" target="_blank" role="button"><i class="fab fa-linkedin-in"></i
+      ></a>
+
+          </section>
+          <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+    <!-- Copyright -->
+    <div class="text-center p-3 text-white" style="background-color: rgb(33, 48, 8);">
+      © 2023 Copyright
+      <!--<a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>-->
+    </div>
+    <!-- Copyright -->
+  </footer>
+   <!--Footer End-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="./public/js/bootstrap.js"></script>
+</html>

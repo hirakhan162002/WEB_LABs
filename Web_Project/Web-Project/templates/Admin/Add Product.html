@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  	<script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <title>Add Product</title>
+</head>
+<style>
+     *{
+        font-family: Garamond;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(33, 48, 8);">
+        <a class="navbar-brand mx-4" href="./adminhome.html" style="font-family: Lucida Handwriting">Blossoms & Berries</a>
+      </nav>
+    <div class="container-fluid my-4 mx-3">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: darkolivegreen;font-size: 18px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  align-items-sm-start" id="menu">
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline  text-white">Orders<i class="fa fa-caret-down mx-2" aria-hidden="true"></i></span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <!--<li class="w-100">
+                                    <a href="#" class="nav-link px-0  text-white"> <span class="d-none d-sm-inline">Order</span> </a>
+                                </li>-->
+                                <li>
+                                    <a href="/orderReport" class="nav-link px-0  text-white"> <span class="d-none d-sm-inline">Orders Report</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Products<i class="fa fa-caret-down mx-2" aria-hidden="true"></i></span> </a>
+                                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="/addProduct" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Add Product</span></a>
+                                </li>
+                                <li>
+                                    <a href="/productListing" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Products Report</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Customers<i class="fa fa-caret-down mx-2" aria-hidden="true"></i></span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                <li>
+                                    <a href="/customerReport" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Customers Report</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/adminProfile" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-white">Profile</span> </a>
+                        </li>
+                        <li>
+                            <a href="/adminLogin" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-white">Log out</span> </a>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            {% if data %}
+            <div class="col py-3 my-2" >
+                <div class="text-center" style="font-size: 25px;color: whitesmoke;font-weight: bolder; background-color: darkred; width: 90%; margin-left: 50px">
+                    <p>{{ msg }}</p>
+                </div>
+                <div class="card" style="width: 90%; margin-left: 50px; background-color: #cad2c5;">
+                    <div class="card-header">
+                        <h1 class="text-center">Edit Product Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action="/updateProductData" method="POST" enctype="multipart/form-data">
+                            <input type="text" value="{{ data.id }}" name="id" hidden>
+                            <div class="form-row" style="display: flex;">
+                                <div class="form-group col-md-5">
+                                    <label for="prodName">Product Name</label>
+                                    <input type="text" class="form-control my-2" id="prodName" value="{{ data.name }}" name="productName" required>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label for="ProdColor">Product Color</label>
+                                    <input type="text" class="form-control my-2" id="ProdColor" value="{{ data.color }}" name="ProductColor" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="display: flex;">
+                                <div class="form-group col-md-5">
+                                    <label for="prodquantity">Product Quantity</label>
+                                    <input type="number" class="form-control my-2" id="prodquantity" value="{{ data.quantity }}" name="productQuantity" required>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label for="ProdPrice">Product Price</label>
+                                    <input type="text" class="form-control my-2" id="ProdPrice" value="{{ data.price }}" name="ProductPrice"  required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="display: flex;">
+                                <div class="form-group col-md-5">
+                                    <label>Product Category</label>
+                                    <input id="category" type="text" value="{{ data.category }}" hidden>
+                                    <div>
+                                        <input type="radio"  id="plant" name="productcategory" value="plants" required>
+                                        <label for="prodcategory">Plant</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio"  id="seed" name="productcategory" value="seeds" required>
+                                        <label for="prodcategory">Seed</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio"  id="fertilizer" name="productcategory" value="fertilizers" required>
+                                        <label for="prodcategory">Fertilizer</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label>Product Sub-category</label>
+                                    <p id="initial"> - </p>
+                                    <input id="subcategory" type="text" value="{{ data.subcategory }}" hidden>
+                                    <div id="p-sub" style="display: none">
+                                        <div>
+                                            <input type="radio"  id="p-flowering" name="productsubcategory" value="flowering plants">
+                                            <label for="p-flowering">Flowering</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="p-nonFlowering" name="productsubcategory" value="non flowering plants" >
+                                            <label for="p-nonFlowering">Non-Flowering</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="p-climbing" name="productsubcategory" value="climbing plants" >
+                                            <label for="p-climbing">Climbing</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="p-creeper" name="productsubcategory" value="creepers">
+                                            <label for="p-creeper">Creeping</label>
+                                        </div>
+                                    </div>
+                                    <div id="s-sub" style="display: none">
+                                        <div>
+                                            <input type="radio"  id="s-fruits" name="productsubcategory" value="fruits">
+                                            <label for="s-fruits">Fruit</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="s-vegetables" name="productsubcategory" value="vegetables" >
+                                            <label for="s-vegetables">Vegetable</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="s-indoor" name="productsubcategory" value="indoor plants" >
+                                            <label for="s-indoor">Indoor Plant</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="s-flowers" name="productsubcategory" value="flowers">
+                                            <label for="s-flowers">Flower</label>
+                                        </div>
+                                    </div>
+                                    <div id="f-sub" style="display: none">
+                                        <div>
+                                            <input type="radio"  id="f-nitrogen" name="productsubcategory" value="nitrogen" >
+                                            <label for="f-nitrogen">Nitrogen</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="f-phosphorus" name="productsubcategory" value="phosphorus" >
+                                            <label for="f-phosphorus">Phosphorus</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="f-potassium" name="productsubcategory" value="potassium">
+                                            <label for="f-potassium">Potassium</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row" style="display: flex; margin-top: 30px;">
+                                <div class="form-group col-md-5">
+                                    <label for="prodImage">Product Image:</label>
+                                    <input type="file" class="form-control my-2"  id="prodImage" value="{{ data.image }}" name="productImage" required>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label for="ProdDescription">Product Description</label>
+                                    <input class="form-control my-2" id="ProdDescription" value="{{ data.description }}" name="ProductDescription">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark btn-lg my-4 py-2 px-4" style="margin-left: 37%;">Edit</button>
+                        </form>
+                    </div>
+            </div>
+
+            {% else %}
+
+            <div class="col py-3 my-2" >
+                <div class="text-center" style="font-size: 25px;color: whitesmoke;font-weight: bolder; background-color: darkred; width: 90%; margin-left: 50px">
+                    <p>{{ msg }}</p>
+                </div>
+                <div class="card" style="width: 90%; margin-left: 50px; background-color: #cad2c5;">
+                    <div class="card-header">
+                        <h1 class="text-center">Add Product</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action="/addProduct" method="POST" enctype="multipart/form-data">
+                            <div class="form-row" style="display: flex;">
+                                <div class="form-group col-md-5">
+                                    <label for="prodName">Product Name</label>
+                                    <input type="text" class="form-control my-2" id="prodName" name="productName" required>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label for="ProdColor">Product Color</label>
+                                    <input type="text" class="form-control my-2" id="ProdColor" name="ProductColor" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="display: flex;">
+                                <div class="form-group col-md-5">
+                                    <label for="prodquantity">Product Quantity</label>
+                                    <input type="number" class="form-control my-2" id="prodquantity" name="productQuantity" required>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label for="ProdPrice">Product Price</label>
+                                    <input type="text" class="form-control my-2" id="ProdPrice" name="ProductPrice"  required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="display: flex;">
+                                <div class="form-group col-md-5">
+                                    <label>Product Category</label>
+                                    <div>
+                                        <input type="radio"  id="plant" name="productcategory" value="plants" required>
+                                        <label for="prodcategory">Plant</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio"  id="seed" name="productcategory" value="seeds" required>
+                                        <label for="prodcategory">Seed</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio"  id="fertilizer" name="productcategory" value="fertilizers" required>
+                                        <label for="prodcategory">Fertilizer</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label>Product Sub-category</label>
+                                    <p id="initial"> - </p>
+                                    <div id="p-sub" style="display: none">
+                                        <div>
+                                            <input type="radio"  id="p-flowering" name="productsubcategory" value="flowering plants">
+                                            <label for="p-flowering">Flowering</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="p-nonFlowering" name="productsubcategory" value="non flowering plants" >
+                                            <label for="p-nonFlowering">Non-Flowering</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="p-climbing" name="productsubcategory" value="climbing plants" >
+                                            <label for="p-climbing">Climbing</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="p-creeper" name="productsubcategory" value="creepers">
+                                            <label for="p-creeper">Creeping</label>
+                                        </div>
+                                    </div>
+                                    <div id="s-sub" style="display: none">
+                                        <div>
+                                            <input type="radio"  id="s-fruits" name="productsubcategory" value="fruits">
+                                            <label for="s-fruits">Fruit</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="s-vegetables" name="productsubcategory" value="vegetables" >
+                                            <label for="s-vegetables">Vegetable</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="s-indoor" name="productsubcategory" value="indoor plants" >
+                                            <label for="s-indoor">Indoor Plant</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="s-flowers" name="productsubcategory" value="flowers">
+                                            <label for="s-flowers">Flower</label>
+                                        </div>
+                                    </div>
+                                    <div id="f-sub" style="display: none">
+                                        <div>
+                                            <input type="radio"  id="f-nitrogen" name="productsubcategory" value="nitrogen" >
+                                            <label for="f-nitrogen">Nitrogen</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="f-phosphorus" name="productsubcategory" value="phosphorus" >
+                                            <label for="f-phosphorus">Phosphorus</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio"  id="f-potassium" name="productsubcategory" value="potassium">
+                                            <label for="f-potassium">Potassium</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row" style="display: flex; margin-top: 30px;">
+                                <div class="form-group col-md-5">
+                                    <label for="prodImage">Product Image:</label>
+                                    <input type="file" class="form-control my-2"  id="prodImage" name="productImage" required>
+                                </div>
+                                <div class="form-group col-md-5 mx-5">
+                                    <label for="ProdDescription">Product Description</label>
+                                    <textarea class="form-control my-2" id="ProdDescription" name="ProductDescription"></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark btn-lg my-4 py-2 px-4" style="margin-left: 37%;">Add Product</button>
+                        </form>
+                    </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+    <script>
+        const plant=document.getElementById("plant")
+        const seed=document.getElementById("seed")
+        const fertilizer=document.getElementById("fertilizer")
+
+        plant.addEventListener('click',SubCategory);
+        seed.addEventListener('click',SubCategory);
+        fertilizer.addEventListener('click',SubCategory);
+
+        function SubCategory(){
+            p_content=document.getElementById("p-sub")
+            s_content=document.getElementById("s-sub")
+            f_content=document.getElementById("f-sub")
+
+            document.getElementById("initial").style.display="none"
+
+            if(plant.checked){
+                p_content.style.display="block";
+                document.getElementById("p-flowering").setAttribute("required",true);
+                document.getElementById("p-nonFlowering").setAttribute("required",true);
+                document.getElementById("p-climbing").setAttribute("required",true);
+                document.getElementById("p-creeper").setAttribute("required",true);
+
+                s_content.style.display="none";
+                f_content.style.display="none";
+
+                document.getElementById("s-flowers").removeAttribute("required");
+                document.getElementById("s-indoor").removeAttribute("required");
+                document.getElementById("s-fruits").removeAttribute("required");
+                document.getElementById("s-vegetables").removeAttribute("required");
+                document.getElementById("f-potassium").removeAttribute("required");
+                document.getElementById("f-phosphorus").removeAttribute("required");
+                document.getElementById("f-nitrogen").removeAttribute("required");
+            }
+
+            else if(seed.checked){
+                s_content.style.display="block";
+                document.getElementById("s-fruits").setAttribute("required",true);
+                document.getElementById("s-vegetables").setAttribute("required",true);
+                document.getElementById("s-indoor").setAttribute("required",true);
+                document.getElementById("s-flowers").setAttribute("required",true);
+
+                p_content.style.display="none";
+                f_content.style.display="none";
+
+                document.getElementById("p-creeper").removeAttribute("required");
+                document.getElementById("p-climbing").removeAttribute("required");
+                document.getElementById("p-nonFlowering").removeAttribute("required");
+                document.getElementById("p-flowering").removeAttribute("required");
+                document.getElementById("f-potassium").removeAttribute("required");
+                document.getElementById("f-phosphorus").removeAttribute("required");
+                document.getElementById("f-nitrogen").removeAttribute("required");
+            }
+
+            else if(fertilizer.checked){
+                f_content.style.display="block";
+                document.getElementById("f-nitrogen").setAttribute("required",true);
+                document.getElementById("f-phosphorus").setAttribute("required",true);
+                document.getElementById("f-potassium").setAttribute("required",true);
+
+                p_content.style.display="none";
+                s_content.style.display="none";
+
+                document.getElementById("s-flowers").removeAttribute("required");
+                document.getElementById("s-indoor").removeAttribute("required");
+                document.getElementById("s-fruits").removeAttribute("required");
+                document.getElementById("s-vegetables").removeAttribute("required");
+                document.getElementById("p-flowering").removeAttribute("required");
+                document.getElementById("p-nonFlowering").removeAttribute("required");
+                document.getElementById("p-climbing").removeAttribute("required");
+                document.getElementById("p-creeper").removeAttribute("required");
+            }
+        }
+
+        $(document).ready(function (){
+            category= document.getElementById("category").value
+            subcategory=document.getElementById("subcategory").value
+
+            if(category==='plants'){
+                document.getElementById("plant").checked=true;
+
+                document.getElementById("initial").style.display="none"
+                p_content=document.getElementById("p-sub")
+
+                if(subcategory==="flowering plants"){
+                    document.getElementById("p-flowering").checked=true;
+                }
+                else if(subcategory==="non flowering plants"){
+                    document.getElementById("p-nonFlowering").checked=true;
+                }
+                else if(subcategory==="climbing plants"){
+                    document.getElementById("p-climbing").checked=true;
+                }
+                else if(subcategory==="creepers"){
+                    document.getElementById("p-creeper").checked=true;
+                }
+
+                p_content.style.display="block"
+
+            }
+            else if(category==="seeds"){
+                document.getElementById("seed").checked=true;
+
+                document.getElementById("initial").style.display="none"
+                s_content=document.getElementById("s-sub")
+
+                if(subcategory==="fruits"){
+                    document.getElementById("s-fruits").checked=true;
+                }
+                else if(subcategory==="vegetables"){
+                    document.getElementById("s-vegetables").checked=true;
+                }
+                else if(subcategory==="indoor plants"){
+                    document.getElementById("s-indoor").checked=true;
+                }
+                else if(subcategory==="flowers"){
+                    document.getElementById("s-flowers").checked=true;
+                }
+
+                s_content.style.display="block"
+
+            }
+            else if(category==="fertilizers"){
+                document.getElementById("fertilizer").checked=true;
+
+                f_content=document.getElementById("f-sub")
+
+                if(subcategory==="nitrogen"){
+                    document.getElementById("f-nitrogen").checked=true;
+                }
+                else if(subcategory==="phosphorus"){
+                    document.getElementById("f-phosphorus").checked=true;
+                }
+                else if(subcategory==="potassium"){
+                    document.getElementById("f-potassium").checked=true;
+                }
+
+                 f_content.style.display="block"
+
+            }
+
+        })
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

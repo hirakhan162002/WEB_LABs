@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/static/external/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <title>Detailed view</title>
+</head>
+<style>
+    *{
+        font-family: Garamond;
+        font-size: medium;
+    }
+    .image_selected:hover{
+        transform: scale(1.2);
+        overflow: hidden;
+        transition-duration: 2s;
+    }
+
+</style>
+<body>
+    <header>
+        <!-- navbar start -->
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(33, 48, 8);">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home" style="font-family: Lucida Handwriting">Blossoms & Berries</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                        <a class="nav-link" href="/signupForm">Register</a>
+                        <a class="nav-link" href="/loginForm">Login</a>
+                        <a class="nav-link" href="/About">About</a>
+                        <a class="nav-link" href="/cart">View Cart</a>
+                        <a class="nav-link" href="/userProfile">Profile</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- navbar end -->
+    </header>
+
+    <!-- body start -->
+    <div class="super-container">
+        <div class="single_product">
+            <div class="container-fluid" style=" background-color:#cad2c5; padding: 11px; margin-top: 30px;">
+                {% for prod in product %}
+                <div class="row">
+                    <div class="col-lg-4 order-lg-2 order-1">
+                        <div class="image_selected">
+                            <img src="{{ url_for('static', filename='product_images/' + prod['image']) }}" alt="Product Image" style="width:70%;height: 400px" ></div>
+                    </div>
+                    <div class="col-lg-6 order-3" style="background-color:#cad2c5;">
+                            <h2>{{prod['name']}}</h2>
+                            <h3>RS. {{prod['price']}}</h3>
+                            <hr class="singleline">
+                            <div>{{prod['description']}}
+                                <br>
+                            </div>
+                        <hr class="singleline">
+                        <div class="row">
+                            <div class="col-xs-6" >
+                                <div class=" col-md-5">
+                                    <form action="/cart" method="post">
+                                        <input type="number" class="form-control my-2" id="prodquantity" name="productQuantity" placeholder="Enter quantity..." required>
+                                        <input type="hidden" name="product_id" value="{{ prod.id }}">
+                                        <input type = "submit"  class=" btn btn-dark text-center my-3" name = "Add to Cart" value = "Add to Cart">
+                                        <a type="button" class="btn btn-dark" style="margin-left: 40px; width: 80px" href="/home">Back</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    <!-- body end -->
+
+    <!--Footer Start-->
+    <footer class="text-center text-white" style="background-color: rgba(0,0,0,0)">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+              <!-- Facebook -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="https://www.facebook.com/" target="_blank" role="button"><i class="fab fa-facebook-f"></i
+      ></a>
+
+              <!-- Twitter -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="https://twitter.com/?lang=en" target="_blank" role="button"><i class="fab fa-twitter"></i
+      ></a>
+
+              <!-- Google -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="https://www.google.com/" target="_blank" role="button"><i class="fab fa-google"></i
+      ></a>
+
+              <!-- Instagram -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="https://www.instagram.com/" target="_blank" role="button"><i class="fab fa-instagram"></i
+      ></a>
+
+              <!-- Linkedin -->
+              <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="https://pk.linkedin.com/" target="_blank" role="button"><i class="fab fa-linkedin-in"></i
+      ></a>
+
+          </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgb(33, 48, 8);">
+            © 2023 Copyright
+            <!--<a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>-->
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!--Footer End-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+
+</html>
